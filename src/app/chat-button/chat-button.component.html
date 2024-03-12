@@ -1,0 +1,25 @@
+<button (click)="toggleChat()" class="chat-button" *ngIf="!isChatOpen">
+  Chat
+</button>
+
+<!-- Chat window -->
+<div class="chat-window" *ngIf="isChatOpen">
+  <div class="header">
+    <div class="title">Box Chat</div>
+    <!-- Button to close chat window -->
+    <div class="close-button" (click)="closeChat()">Close</div>
+  </div>
+  <!-- Container for chat messages -->
+  <div class="chat-messages">
+    <!-- Display each message in chatMessages array -->
+    <div *ngFor="let message of chatMessages" [ngClass]="{'user-message': message.sender === 'user', 'gpt-message': message.sender === 'gpt'}">
+      {{ message.content }}
+    </div>
+  </div>
+  <!-- Input area for typing messages -->
+  <div class="input-area">
+    <input type="text" placeholder="Type your message here..." [(ngModel)]="newMessage" (keypress)="onKeyPress($event)"/>
+    <!-- Button to send message -->
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
